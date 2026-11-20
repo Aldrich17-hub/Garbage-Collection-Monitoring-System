@@ -1,0 +1,32 @@
+1. One-time prerequisites
+1. Open **Visual Studio Installer** > **Modify** > tick the **.NET desktop development** workload > Install.
+2. Start **XAMPP** and click **Start** on **MySQL**. Then import `garbage_collection_db.sql` in phpMyAdmin (Import tab). The app shows a warning at startup if the database is missing.
+
+2. Open the project (easiest way)
+1. Unzip `GarbageCollectionMonitoringSystem.zip` to a normal folder such as `C:\Projects\`, not inside the zip or a temp folder.
+2. Visual Studio > **File > Open > Project/Solution** > pick `GarbageCollectionMonitoringSystem.csproj`.
+3. Wait for the status bar to say the NuGet restore finished. Check **Dependencies > Packages** in Solution Explorer for `MySql.Data`. If it's missing, right-click the solution > **Restore NuGet Packages**.
+4. If Visual Studio offers to install a missing .NET 8 SDK, accept it. You can also change `net8.0-windows` in the `.csproj` to the newest installed version (for example `net10.0-windows`); the code works on either.
+
+3. Alternative: start from a new project
+Do this only if opening the `.csproj` doesn't work.
+1. **Create a new project > Windows Forms App** (C#; not the ".NET Framework" one) > name it `GarbageCollectionMonitoringSystem`.
+2. Delete the generated `Form1.cs`, then right-click the project > **Add > Existing Item** and add every `.cs` file from the zip.
+3. Rename any `FrmX_Designer.cs` to `FrmX.Designer.cs` (dot, not underscore), for all six forms. They should then nest under their `FrmX.cs`.
+4. Replace the generated `Program.cs` with the supplied one, which starts `FrmWelcome`.
+5. Right-click the project > **Manage NuGet Packages > Browse** > install **MySql.Data** (Oracle).
+
+4. Build, then view the UI
+1. Set the toolbar dropdown to **Debug** and **Any CPU**.
+2. Press **Ctrl+Shift+B** to build. Do this before opening any form in the designer, because the custom rounded buttons live in `UiKit.cs`.
+3. In Solution Explorer, double-click `FrmWelcome.cs`, `FrmLogin.cs` and the others to see the layout.
+   - If a designer shows an error about `RoundedButton`, rebuild and reopen it.
+   - `FrmDashboard`, `FrmAddSchedule` and `FrmDriverBatch` look best at 100% display scaling.
+4. Press F5 to run. The Welcome screen should open.
+
+5. First functional run (about 2 minutes)
+1. Click **Sign in**, then log in as `official1` / `password123`. You should see the dashboard with **Schedule** and **Add Schedule**.
+2. Click **Add Schedule** and submit one entry, then return to **Schedule** and check it appears.
+3. Log out, then log in as `driver1` / `password123`. Open **Driver Assigned Batch** and submit a status.
+4. Log out, then log in as `resident1` / `password123`. Check **Schedule** and **History**.
+
